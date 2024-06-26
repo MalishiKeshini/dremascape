@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DreamScape</title>
+    <style>
+        body {
+            font-family: 'Arial, sans-serif';
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            text-align: center;
+            padding: 20px 0;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin: 0;
+            color: #6a1b9a;
+            animation: pulse 2s infinite;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #6a1b9a;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ff6f91;
+            transform: scale(1.1);
+        }
+
+        .container {
+            padding: 100px 20px 20px;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .section h2 {
+            color: #6a1b9a;
+        }
+
+        button {
+            background: #6a1b9a;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background: #ff6f91;
+            transform: scale(1.1);
+        }
+
+        .dreamy-bg {
+            background: linear-gradient(135deg, #ffffff 0%, #fffdff 100%);
+            color: rgb(16, 16, 16);
+            padding: 50px;
+            text-align: center;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .dreamy-bg h2 {
+            font-size: 2.5em;
+        }
+
+        .dreamy-bg p {
+            font-size: 1.2em;
+        }
+
+        .exercise {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .exercise-item {
+            flex: 1 1 calc(33.333% - 20px);
+            margin: 10px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .exercise-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .exercise-item h3 {
+            color: #6a1b9a;
+        }
+
+        .activity-item {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .activity-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .activity-item h3 {
+            color: #6a1b9a;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .countdown-item {
+            background: #6a1b9a;
+            color: white;
+            padding: 20px;
+            margin: 0 10px;
+            border-radius: 5px;
+            text-align: center;
+            width: 80px;
+        }
+
+        .countdown-item h3 {
+            margin: 0;
+            font-size: 2em;
+        }
+
+        .countdown-item p {
+            margin: 0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>DreamScape</h1>
+        <nav>
+            <a href="#lucid">Lucid Dreaming</a>
+            <a href="#exercises">Exercises</a>
+            <a href="#activities">Activities</a>
+            <a href="#countdown">Countdown</a>
+        </nav>
+    </header>
+    <div class="container">
+        <div id="lucid" class="section">
+            <h2>Lucid Dreaming</h2>
+            <p>Lucid Dreaming is a state where the dreamer becomes aware that they are dreaming and can often control the dream's narrative. It is used for personal development, problem-solving, and exploring the subconscious.</p>
+            <p>Practices like reality checks, meditation, and dream journaling can enhance your ability to experience lucid dreams. Lucid dreaming can also be used for therapeutic purposes, such as overcoming nightmares.</p>
+        </div>
+        <div id="exercises" class="section">
+            <h2>Exercises</h2>
+            <div class="exercise">
+                <div class="exercise-item" onclick="openModal('Reality Checks', 'Regularly question your reality throughout the day to improve your ability to recognize dreams.')">
+                    <h3>Reality Checks</h3>
+                    <p>Regularly question your reality throughout the day to improve your ability to recognize dreams.</p>
+                </div>
+                <div class="exercise-item" onclick="openModal('Meditation', 'Practice mindfulness meditation to enhance your awareness and concentration.')">
+                    <h3>Meditation</h3>
+                    <p>Practice mindfulness meditation to enhance your awareness and concentration.</p>
+                </div>
+                <div class="exercise-item" onclick="openModal('Dream Journaling', 'Keep a journal by your bed and write down your dreams immediately upon waking.')">
+                    <h3>Dream Journaling</h3>
+                    <p>Keep a journal by your bed and write down your dreams immediately upon waking.</p>
+                </div>
+                <div class="exercise-item" onclick="openModal('Visualization', 'Spend a few minutes before sleep visualizing the dream you want to experience.')">
+                    <h3>Visualization</h3>
+                    <p>Spend a few minutes before sleep visualizing the dream you want to experience.</p>
+                </div>
+                <div class="exercise-item" onclick="openModal('Wake Back to Bed', 'Wake up after 5-6 hours of sleep, stay awake for a short period, then return to sleep to enter a lucid dream.')">
+                    <h3>Wake Back to Bed</h3>
+                    <p>Wake up after 5-6 hours of sleep, stay awake for a short period, then return to sleep to enter a lucid dream.</p>
+                </div>
+            </div>
+        </div>
+        <div id="activities" class="section">
+            <h2>Activities</h2>
+            <div class="activity-item" onclick="openModal('Creative Writing', 'Engage in creative writing to channel your imagination into productive outlets. Create stories, poems, or journal entries to express your inner world.')">
+                <h3>Creative Writing</h3>
+                <p>Engage in creative writing to channel your imagination into productive outlets. Create stories, poems, or journal entries to express your inner world.</p>
+            </div>
+            <div class="activity-item" onclick="openModal('Drawing and Painting', 'Use art to visualize your dreams and daydreams. Drawing and painting can be therapeutic and help in understanding your subconscious.')">
+                <h3>Drawing and Painting</h3>
+                <p>Use art to visualize your dreams and daydreams. Drawing and painting can be therapeutic and help in understanding your subconscious.</p>
+            </div>
+            <div class="activity-item" onclick="openModal('Music and Dance', 'Music and dance can be powerful tools for expressing emotions and entering a state of flow. Create or listen to music that inspires you, and move your body to the rhythm.')">
+                <h3>Music and Dance</h3>
+                <p>Music and dance can be powerful tools for expressing emotions and entering a state of flow. Create or listen to music that inspires you, and move your body to the rhythm.</p>
+            </div>
+            <div class="activity-item" onclick="openModal('Mindfulness Practice', 'Engage in mindfulness exercises to stay grounded in the present moment. Techniques include deep breathing, body scans, and mindful observation.')">
+                <h3>Mindfulness Practice</h3>
+                <p>Engage in mindfulness exercises to stay grounded in the present moment. Techniques include deep breathing, body scans, and mindful observation.</p>
+            </div>
+            <div class="activity-item" onclick="openModal('Physical Exercise', 'Incorporate physical activities like yoga, running, or dancing to reduce stress and improve overall well-being.')">
+                <h3>Physical Exercise</h3>
+                <p>Incorporate physical activities like yoga, running, or dancing to reduce stress and improve overall well-being.</p>
+            </div>
+            <div class="activity-item" onclick="openModal('Therapeutic Writing', 'Write about your daydreams and feelings in a therapeutic manner. This can help you process emotions and understand the triggers for your daydreaming.')">
+                <h3>Therapeutic Writing</h3>
+                <p>Write about your daydreams and feelings in a therapeutic manner. This can help you process emotions and understand the triggers for your daydreaming.</p>
+            </div>
+        </div>
+        <div id="countdown" class="section">
+            <h2>Countdown to Your Next Lucid Dream</h2>
+            <div class="countdown" id="countdown-container">
+                <!-- Countdown timer will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+    <div class="dreamy-bg">
+        <h2>Explore Your Dreams</h2>
+        <p>Unlock the potential of your mind through conscious and controlled dreaming.</p>
+        <button onclick="startJourney()">Get Started</button>
+        <button onclick="resetCountdown()">Reattempt</button>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title"></h2>
+            <p id="modal-content"></p>
+        </div>
+    </div>
+
+    <script>
+        // Function to open modal
+        function openModal(title, content) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-content').innerText = content;
+            document.getElementById('modal').style.display = 'block';
+        }
+
+        // Function to close modal
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        // Countdown Timer Script
+        let countdownInterval; // Variable to hold countdown interval
+
+        function countdownTimer() {
+            const endDate = new Date();
+            endDate.setMonth(endDate.getMonth() + 6); // Set countdown duration to 6 months
+
+            const countdownDate = endDate.getTime();
+
+            countdownInterval = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = countdownDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("countdown-container").innerHTML = `
+                    <div class="countdown-item">
+                        <h3>${days}</h3>
+                        <p>Days</p>
+                    </div>
+                    <div class="countdown-item">
+                        <h3>${hours}</h3>
+                        <p>Hours</p>
+                    </div>
+                    <div class="countdown-item">
+                        <h3>${minutes}</h3>
+                        <p>Minutes</p>
+                    </div>
+                    <div class="countdown-item">
+                        <h3>${seconds}</h3>
+                        <p>Seconds</p>
+                    </div>
+                `;
+
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById("countdown-container").innerHTML = "<h3>The time has come!</h3>";
+                }
+            }, 1000);
+        }
+
+        // Function to start journey
+        function startJourney() {
+            countdownTimer(); // Start countdown
+            openModal("Welcome to Your Dream Journey!", "Prepare to explore the depths of your subconscious and unlock the potential of your mind. Start by keeping a dream journal and practicing reality checks. Enjoy your journey!");
+        }
+
+        // Function to reset countdown
+        function resetCountdown() {
+            clearInterval(countdownInterval); // Clear existing interval if any
+            document.getElementById("countdown-container").innerHTML = ""; // Clear countdown display
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('modal')) {
+                closeModal();
+            }
+        };
+    </script>
+</body>
+</html>
